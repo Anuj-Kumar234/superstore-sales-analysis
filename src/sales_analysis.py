@@ -1,8 +1,9 @@
 # total_recordsing total records and checking what columns are present there in the csv
 import csv
+from utils import top_n
 
 
-with open("superstore.csv", "r", encoding="utf-8") as file:
+with open("data/superstore.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     total_records = 0
     header = next(reader)
@@ -14,7 +15,7 @@ with open("superstore.csv", "r", encoding="utf-8") as file:
 
 
 # Total Sales
-with open("superstore.csv", "r", encoding="utf-8") as file:
+with open("data/superstore.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     total_sales = 0
     next(reader)
@@ -25,7 +26,7 @@ with open("superstore.csv", "r", encoding="utf-8") as file:
 
 
 #Average of sales
-with open("superstore.csv", "r", encoding="utf-8") as file:
+with open("data/superstore.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     average = total_sales / float(total_records)
     print(f"Average : ${average:,.2f}")
@@ -33,7 +34,7 @@ with open("superstore.csv", "r", encoding="utf-8") as file:
 
 
 #Finding best performing category
-with open("superstore.csv", "r", encoding="utf-8") as file:
+with open("data/superstore.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     category_sales = {}
     next(reader)
@@ -51,7 +52,7 @@ with open("superstore.csv", "r", encoding="utf-8") as file:
 
 
 #Finding the best performing state
-with open("superstore.csv","r",encoding="utf-8") as file:
+with open("data/superstore.csv","r",encoding="utf-8") as file:
     reader = csv.reader(file)
     next(reader)
     state_sales = {}
@@ -63,19 +64,17 @@ with open("superstore.csv","r",encoding="utf-8") as file:
     print('\nBest Performing State:')
     best_performing_state = max(state_sales,key=state_sales.get)
 
-    print(f"{best_performing_state} - ₹{state_sales[best_performing_state]:,.2f}")
+    print(f"{best_performing_state} - ${state_sales[best_performing_state]:,.2f}")
 
     # TOP 5 PERFORMING STATES
     print("\nTop 5 Performing States:")
-    top_5 = sorted(state_sales.items(),key=lambda x:x[1],reverse = True)
+    top_5 = top_n(state_sales,5)
     for i,tup in enumerate(top_5):
-        if i == 5:
-            break
         print(f"{i+1}. {tup[0]} - ${tup[1]:,.2f}")
     
 
 #Customers by Revenue
-with open("superstore.csv","r",encoding="utf-8") as file:
+with open("data/superstore.csv","r",encoding="utf-8") as file:
     reader = csv.reader(file)
     next(reader)
     customer_revenue = {}
@@ -86,14 +85,14 @@ with open("superstore.csv","r",encoding="utf-8") as file:
 
     #Top 5 Customers by Revenue   
     print("\nTop 5 Customers:")
-    top_customers = sorted(customer_revenue.items(),key=lambda x:x[1],reverse=True)
+    top_customers = top_n(customer_revenue,5)
     
-    for i,tup in enumerate(top_customers[:5]):
+    for i,tup in enumerate(top_customers):
         print(f"{i+1}. {tup[0]} - ${tup[1]:,.2f}")
 
 
 #Top Regions by Revenue
-with open("superstore.csv","r",encoding="utf-8") as file:
+with open("data/superstore.csv","r",encoding="utf-8") as file:
     reader = csv.reader(file)
     next(reader)
     region_revenue = {}
@@ -104,14 +103,14 @@ with open("superstore.csv","r",encoding="utf-8") as file:
 
     #Top 5 Regions by Revenue   
     print("\nTop 5 Regions:")
-    top_regions = sorted(region_revenue.items(),key=lambda x:x[1],reverse=True)
+    top_regions = top_n(region_revenue,5)
     
-    for i,tup in enumerate(top_regions[:5]):
+    for i,tup in enumerate(top_regions):
         print(f"{i+1}. {tup[0]} - ${tup[1]:,.2f}")
 
 
 #Top Segments by Revenue
-with open("superstore.csv","r",encoding="utf-8") as file:
+with open("data/superstore.csv","r",encoding="utf-8") as file:
     reader = csv.reader(file)
     next(reader)
     segments_revenue ={}
@@ -122,13 +121,13 @@ with open("superstore.csv","r",encoding="utf-8") as file:
 
     #Top 5 Segments by Revenue   
     print("\nTop 5 Segments:")
-    top_segments = sorted(segments_revenue.items(),key=lambda x:x[1],reverse=True)
+    top_segments = top_n(segments_revenue,5)
     
-    for i,tup in enumerate(top_segments[:5]):
+    for i,tup in enumerate(top_segments):
         print(f"{i+1}. {tup[0]} - ${tup[1]:,.2f}")
 
 #Top Products by Revenue
-with open("superstore.csv","r",encoding="utf-8") as file:
+with open("data/superstore.csv","r",encoding="utf-8") as file:
     reader = csv.reader(file)
     next(reader)
     product_revenue = {}
@@ -139,9 +138,9 @@ with open("superstore.csv","r",encoding="utf-8") as file:
 
     #Top 5 Products by Revenue   
     print("\nTop 5 Products:")
-    top_products = sorted(product_revenue.items(),key=lambda x:x[1],reverse=True)
+    top_products = top_n(product_revenue,5)
     
-    for i,tup in enumerate(top_products[:5]):
+    for i,tup in enumerate(top_products):
         print(f"{i+1}. {tup[0]} - ${tup[1]:,.2f}")
 
 print("\n===== BUSINESS INSIGHTS =====")
