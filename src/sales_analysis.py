@@ -1,7 +1,7 @@
 #Recording total records and checking what columns are present there in the csv
 from utils import top_n , load_data , aggregate
 
-data = load_data("data/superstore.csv")
+data = load_data("../data/superstore.csv")
 total_records = 0
 header = data[0]
 for i in data[1:]:
